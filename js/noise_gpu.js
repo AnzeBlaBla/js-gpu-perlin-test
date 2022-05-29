@@ -150,7 +150,6 @@ function handleMouseOut(e) {
 }
 
 function handleMouseMove(e) {
-
     // only do this code if the mouse is being dragged
     if (!isDown) { return; }
 
@@ -174,8 +173,67 @@ function handleMouseMove(e) {
     // accumulate the net panning done
     currentOffset[0] -= dx;
     currentOffset[1] += dy;
-
 }
+
+
+// touch
+canvas.addEventListener('touchstart', handleTouchStart, false);
+canvas.addEventListener('touchend', handleTouchEnd, false);
+canvas.addEventListener('touchmove', handleTouchMove, false);
+
+function handleTouchStart(e) {
+    // tell the browser we're handling this event
+    e.preventDefault();
+    e.stopPropagation();
+
+    // get the current mouse position
+    let mouseX = parseInt(e.touches[0].clientX - offsetX);
+    let mouseY = parseInt(e.touches[0].clientY - offsetY);
+
+    // calc the starting mouse X,Y for the drag
+    startX = mouseX;
+    startY = mouseY;
+
+    // set the isDragging flag
+    isDown = true;
+}
+
+function handleTouchEnd(e) {
+    // tell the browser we're handling this event
+    e.preventDefault();
+    e.stopPropagation();
+
+    // clear the isDragging flag
+    isDown = false;
+}
+
+function handleTouchMove(e) {
+    // only do this code if the mouse is being dragged
+    if (!isDown) { return; }
+
+    // tell the browser we're handling this event
+    e.preventDefault();
+    e.stopPropagation();
+
+    // get the current mouse position
+    let mouseX = parseInt(e.touches[0].clientX - offsetX);
+    let mouseY = parseInt(e.touches[0].clientY - offsetY);
+
+    // dx & dy are the distance the mouse has moved since
+    // the last mousemove event
+    var dx = mouseX - startX;
+    var dy = mouseY - startY;
+
+    // reset the vars for next mousemove
+    startX = mouseX;
+    startY = mouseY;
+
+    // accumulate the net panning done
+    currentOffset[0] -= dx;
+    currentOffset[1] += dy;
+}
+
+
 
 function gameLoop() {
 

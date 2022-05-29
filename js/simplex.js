@@ -51,14 +51,6 @@ const grad3 = [1, 1, 0,
     0, 1, -1,
     0, -1, -1];
 
-export {
-    perm,
-    permMod12,
-    grad3,
-    F2,
-    G2,
-    grad3
-}
 
 export default function attach(kernel) {
     kernel.addFunction(function simplexNoise(_x, _y) {

@@ -56,8 +56,8 @@ export default function attach(kernel) {
     kernel.addFunction(function simplexNoise(_x, _y) {
 
         // Workaround to avoid negative number repetition
-        const x = _x + 10**3;
-        const y = _y + 10**3;
+        const x = _x + 10 ** 3;
+        const y = _y + 10 ** 3;
 
         let n0 = 0; // Noise contributions from the three corners
         let n1 = 0;
@@ -133,6 +133,12 @@ export default function attach(kernel) {
             t: "Number"
         },
         returnType: "Number"
+    });
+
+    kernel.addFunction(function dist(x_one, y1, x2, y2) {
+        var xd = x_one - x2
+        var yd = y1 - y2
+        return Math.sqrt(xd * xd + yd * yd)
     });
 
     kernel.setConstants({

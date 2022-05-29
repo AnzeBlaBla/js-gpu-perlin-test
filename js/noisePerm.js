@@ -45,5 +45,4 @@ export {
     grad3,
     F2,
     G2,
-    grad3
 }
